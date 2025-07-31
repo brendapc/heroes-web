@@ -5,3 +5,6 @@ npx lint-staged
 
 # Executar testes
 npm test
+
+# Executar build para verificar se compila
+npm run build

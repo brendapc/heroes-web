@@ -7,10 +7,10 @@
  */
 export function formatCurrency(
   amount: number,
-  currency: string = "USD"
+  currency: string = 'USD'
 ): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
     currency,
   }).format(amount);
 }
@@ -28,7 +28,7 @@ export function capitalize(str: string): string {
  */
 export function truncate(str: string, maxLength: number): string {
   if (str.length <= maxLength) return str;
-  return str.slice(0, maxLength) + "...";
+  return str.slice(0, maxLength) + '...';
 }
 
 /**
@@ -42,7 +42,7 @@ export function isValidEmail(email: string): boolean {
 /**
  * Debounces a function
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
