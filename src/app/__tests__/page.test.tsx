@@ -41,49 +41,86 @@ describe('Home Page', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
   });
 
-  it('displays the Next.js logo', () => {
+  it('displays the neocities style title', () => {
     render(<Home />);
 
-    const logo = screen.getByAltText('Next.js logo');
-    expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute('src', '/next.svg');
-  });
-
-  it('contains the getting started instructions', () => {
-    render(<Home />);
-
-    expect(screen.getByText(/Get started by editing/)).toBeInTheDocument();
+    expect(screen.getByText('🐱✨ GATINHOS FOFINHOS ✨🐱')).toBeInTheDocument();
     expect(
-      screen.getByText(/Save and see your changes instantly/)
+      screen.getByText('~*~ Bem-vindo ao meu site de gatinhos! ~*~')
     ).toBeInTheDocument();
   });
 
-  it('has deploy and docs links', () => {
+  it('contains the welcome section', () => {
     render(<Home />);
 
-    const deployLink = screen.getByRole('link', { name: /Deploy now/i });
-    const docsLink = screen.getByRole('link', { name: /Read our docs/i });
-
-    expect(deployLink).toBeInTheDocument();
-    expect(docsLink).toBeInTheDocument();
-
-    expect(deployLink).toHaveAttribute(
-      'href',
-      'https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-    );
-    expect(docsLink).toHaveAttribute(
-      'href',
-      'https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-    );
+    expect(
+      screen.getByText('🎉 Bem-vindo ao meu site de gatinhos! 🎉')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Este é o lugar mais fofo da internet/)
+    ).toBeInTheDocument();
   });
 
-  it('has footer links', () => {
+  it('has navigation menu', () => {
     render(<Home />);
 
-    expect(screen.getByRole('link', { name: /Learn/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Examples/i })).toBeInTheDocument();
+    expect(screen.getByText('🏠 Home')).toBeInTheDocument();
+    expect(screen.getByText('😺 Gatinhos')).toBeInTheDocument();
+    expect(screen.getByText('📚 Curiosidades')).toBeInTheDocument();
+    expect(screen.getByText('📝 Guestbook')).toBeInTheDocument();
+    expect(screen.getByText('🔗 Links')).toBeInTheDocument();
+  });
+
+  it('displays cat gallery', () => {
+    render(<Home />);
+
+    expect(screen.getByText('🐱 Galeria de Gatinhos 🐱')).toBeInTheDocument();
+    expect(screen.getByText('Gatinho Feliz')).toBeInTheDocument();
+    expect(screen.getByText('Gatinho Travesso')).toBeInTheDocument();
+    expect(screen.getByText('Gatinho Apaixonado')).toBeInTheDocument();
+    expect(screen.getByText('Gatinho Beijoqueiro')).toBeInTheDocument();
+    expect(screen.getByText('Gatinho Chorão')).toBeInTheDocument();
+    expect(screen.getByText('Gatinho Surpreso')).toBeInTheDocument();
+  });
+
+  it('has fun facts section', () => {
+    render(<Home />);
+
     expect(
-      screen.getByRole('link', { name: /Go to nextjs.org/i })
+      screen.getByText('📚 Curiosidades sobre Gatinhos 📚')
+    ).toBeInTheDocument();
+    expect(screen.getByText('Gatinhos Dormem Muito!')).toBeInTheDocument();
+    expect(screen.getByText('Gatinhos Ronronam!')).toBeInTheDocument();
+    expect(screen.getByText('Língua Especial!')).toBeInTheDocument();
+    expect(screen.getByText('Patas Sensíveis!')).toBeInTheDocument();
+  });
+
+  it('has guestbook section', () => {
+    render(<Home />);
+
+    expect(screen.getByText('📝 Guestbook 📝')).toBeInTheDocument();
+    expect(
+      screen.getByText('Deixe uma mensagem para os gatinhos! 💕')
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Os gatinhos são demais/)).toBeInTheDocument();
+  });
+
+  it('has links section', () => {
+    render(<Home />);
+
+    expect(screen.getByText('🔗 Links Fofos 🔗')).toBeInTheDocument();
+    expect(screen.getByText('🐱 Meus Amigos')).toBeInTheDocument();
+    expect(screen.getByText('🎨 Recursos')).toBeInTheDocument();
+  });
+
+  it('has footer with neocities style', () => {
+    render(<Home />);
+
+    expect(
+      screen.getByText('Feito com 💜 e muito amor pelos gatinhos! 🐱✨')
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Melhor visualizado em 800x600/)
     ).toBeInTheDocument();
   });
 });
