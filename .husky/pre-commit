@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Executar lint-staged nos arquivos staged
+npx lint-staged
+
+# Executar testes
+npm test
