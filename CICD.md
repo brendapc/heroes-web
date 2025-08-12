@@ -6,47 +6,48 @@ This document outlines the CI/CD pipeline for the Heroes Web application using G
 
 ## Pipeline Structure
 
-Our CI/CD pipeline consists of a single workflow file (`.github/workflows/ci.yml`) that handles testing, security scanning, and deployment.
+Our CI/CD pipeline consists of a single workflow file (`.github/workflows/ci.yml`) that handles all testing, security scanning, and deployment.
 
 ### Triggers
 
-- **Pull Requests**: Runs tests and creates preview deployments
-- **Pushes to master**: Runs tests and deploys to production
+- **Pull Requests**: Runs full test suite and creates preview deployments
+- **Pushes to main/master**: Runs full test suite and deploys to production
 
-## Workflow Jobs
+## Workflow File
 
-### 1. Test Job
+### CI Workflow (`ci.yml`)
 
-Runs on every pull request and push to master branch.
+**Trigger**: Pull requests and pushes to main/master branches
 
-**Steps:**
+**Purpose**: Complete CI/CD pipeline with quality checks, security scanning, and deployment
+
+**Jobs:**
+
+#### Test Job
 
 - Checkout code
 - Setup Node.js 20.x with npm caching
 - Install dependencies (`npm ci`)
+- Check formatting (`npm run format:check`)
 - Run linting (`npm run lint`)
-- Run tests (`npm test`)
+- Run tests with coverage (`npm run test:coverage`)
 - Run type checking (`npm run type-check`)
 - Build application (`npm run build`)
 - Run security audit (`npm audit --audit-level=moderate`)
 - Run CodeQL analysis for security scanning
 - Upload test coverage to Codecov
 
-### 2. Deploy Preview Job
+#### Deploy Preview Job
 
 Runs only on pull requests, after the test job passes.
-
-**Steps:**
 
 - Setup and build the application
 - Deploy to Vercel preview environment
 - Comment on PR with preview URL
 
-### 3. Deploy Job
+#### Deploy Job
 
 Runs only on pushes to main/master branches, after the test job passes.
-
-**Steps:**
 
 - Setup and build the application
 - Deploy to Vercel production environment
@@ -77,15 +78,17 @@ VERCEL_ORG_ID         # Vercel organization ID
 VERCEL_PROJECT_ID     # Vercel project ID
 ```
 
-### Package.json Scripts
+### Required Package.json Scripts
 
 Ensure your `package.json` includes these required scripts:
 
 ```json
 {
   "scripts": {
+    "format:check": "prettier --check .",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "type-check": "tsc --noEmit",
     "build": "next build"
   }
@@ -96,13 +99,14 @@ Ensure your `package.json` includes these required scripts:
 
 ### For Pull Requests
 
-1. Run all tests and quality checks
-2. If tests pass, create preview deployment on Vercel
-3. Comment on PR with preview URL
+1. Run full test suite with quality checks (formatting, linting, tests, type checking)
+2. Run security scanning (npm audit + CodeQL)
+3. If all tests pass, create preview deployment on Vercel
+4. Comment on PR with preview URL
 
 ### For Main/Master Branch
 
-1. Run all tests and quality checks
+1. Run full test suite with quality checks and security scanning
 2. If tests pass, deploy to Vercel production
 
 ## Troubleshooting
@@ -113,5 +117,13 @@ Ensure your `package.json` includes these required scripts:
 - **Build failures**: Usually TypeScript errors - check the type-check step
 - **Deployment issues**: Verify Vercel secrets are configured correctly
 - **Security audit failures**: Update vulnerable dependencies
+
+### Getting Help
+
+1. Check GitHub Actions logs for detailed error messages
+2. Run the same commands locally to reproduce issues
+3. Verify all required secrets are configured in repository settings
+
+---
 
 _Last updated: August 12, 2025_
