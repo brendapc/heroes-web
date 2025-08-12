@@ -10,18 +10,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20.x'
           cache: 'npm'
 
       - name: Install dependencies
@@ -39,31 +35,6 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        if: matrix.node-version == '20.x'
-        with:
-          file: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
-
-  security-scan:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Run npm audit
         run: npm audit --audit-level=moderate
 
@@ -78,8 +49,16 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
   deploy-preview:
-    needs: [test, security-scan]
+    needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
 
@@ -132,7 +111,7 @@ jobs:
             }
 
   deploy:
-    needs: [test, security-scan]
+    needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
 
