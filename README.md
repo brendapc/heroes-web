@@ -1,3 +1,5 @@
+# Heroes Web
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -19,6 +21,35 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run format:check # Check code formatting
+npm test             # Run tests
+npm run test:coverage # Run tests with coverage
+npm run type-check   # Run TypeScript type checking
+```
+
+## Documentation
+
+- **[CI/CD Documentation](./CICD.md)** - Comprehensive guide to our CI/CD pipeline and best practices
+- **[Security Guidelines](./SECURITY.md)** - Security best practices and guidelines
+- **[Testing Guidelines](./TESTING.md)** - Testing strategies and practices
+- **[GitHub Actions Workflows](./GITHUB_ACTIONS.md)** - Detailed workflow documentation
+
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+- **Quality Checks**: Automated linting, testing, and formatting on every PR
+- **Security Scanning**: NPM audit, Snyk, and CodeQL analysis
+- **Preview Deployments**: Automatic Vercel preview deployments for PRs
+- **Production Deployments**: Automatic production deployment on main branch
 
 ## Learn More
 

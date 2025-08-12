@@ -1,10 +1,13 @@
 #!/usr/bin/env sh
 
-# Executar lint-staged nos arquivos staged
+# Run lint-staged to format and lint staged files
 npx lint-staged
 
-# Executar testes
+# Run type check
+npm run type-check
+
+# Run tests
 npm test
 
-# Executar build para verificar se compila
+# Run build to verify compilation
 npm run build

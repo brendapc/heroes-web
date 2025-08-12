@@ -26,13 +26,13 @@ src/
 ## Basic Test Example
 
 ```tsx
-import { render, screen } from "@testing-library/react";
-import MyComponent from "../MyComponent";
+import { render, screen } from '@testing-library/react';
+import MyComponent from '../MyComponent';
 
-describe("MyComponent", () => {
-  it("renders correctly", () => {
+describe('MyComponent', () => {
+  it('renders correctly', () => {
     render(<MyComponent />);
-    expect(screen.getByText("Hello")).toBeInTheDocument();
+    expect(screen.getByText('Hello')).toBeInTheDocument();
   });
 });
 ```
@@ -42,7 +42,7 @@ describe("MyComponent", () => {
 ### Mock Next.js Image
 
 ```tsx
-jest.mock("next/image", () => ({
+jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ src, alt, ...props }: any) => (
     <img src={src} alt={alt} {...props} />
@@ -53,7 +53,7 @@ jest.mock("next/image", () => ({
 ### Mock Router
 
 ```tsx
-jest.mock("next/navigation", () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
 }));
 ```
